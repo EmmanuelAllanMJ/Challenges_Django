@@ -7,8 +7,8 @@ from . import views
 # Here we are pointing to the function
 urlpatterns = [
 
+    path("",views.index), #challenge/,
     path("<int:month>",views.monthly_challenge_int),
-    # We can use this name to construct paths URLs pointing at that registered URL
     path("<str:month>",views.monthly_challenge,name="month-challenge"),
 ]
 
