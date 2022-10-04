@@ -8,7 +8,8 @@ from . import views
 urlpatterns = [
 
     path("<int:month>",views.monthly_challenge_int),
-    path("<str:month>",views.monthly_challenge),
+    # We can use this name to construct paths URLs pointing at that registered URL
+    path("<str:month>",views.monthly_challenge,name="month-challenge"),
 ]
 
 # Now we need to config urls which should be triggered for the incoming request

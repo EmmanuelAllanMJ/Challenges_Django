@@ -1,7 +1,6 @@
-import re
-from turtle import forward
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
+from django.urls import reverse
 
 # Create your views here.
 monthly_challenges = {    
@@ -26,9 +25,13 @@ def monthly_challenge_int(request,month):
     if month>12:
         return HttpResponseNotFound("Invalid month")
     redirect_month = months[month-1]
-    return HttpResponseRedirect("/challenges/"+redirect_month)
+    # To construct this url in more dynamic way
+    # return HttpResponseRedirect("/challenges/"+redirect_month)
+    
+    # The second parameter will accepts any arg which is followed by it. This gets an array or list, our case has one argument
+    redirect_url = reverse("month-challenge",args=[redirect_month]) # This would effectively build a path like /challenge/january
+    return HttpResponseRedirect( redirect_month)
 
-    return HttpResponse(month)
 
 def monthly_challenge(request,month):
     try:
