@@ -7,7 +7,8 @@ from . import views
 # Here we are pointing to the function
 urlpatterns = [
 
-    path("<month>",views.monthly_challenge),
+    path("<int:month>",views.monthly_challenge_int),
+    path("<str:month>",views.monthly_challenge),
 ]
 
 # Now we need to config urls which should be triggered for the incoming request

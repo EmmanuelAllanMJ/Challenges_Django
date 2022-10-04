@@ -1,9 +1,12 @@
+import re
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseNotFound
 
 # Create your views here.
 
-# Second argument is month identifier which we gave in urls.py
+def monthly_challenge_int(request,month):
+    return HttpResponse(month)
+
 def monthly_challenge(request,month):
     if month=="january":
         challenge_text = "Eat no meat for the entire month"
