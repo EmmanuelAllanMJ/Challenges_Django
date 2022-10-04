@@ -6,7 +6,8 @@ from . import views
 # When a request reaches january execute index fn
 # Here we are pointing to the function
 urlpatterns = [
-    path("january",views.index)
+
+    path("<month>",views.monthly_challenge),
 ]
 
 # Now we need to config urls which should be triggered for the incoming request
