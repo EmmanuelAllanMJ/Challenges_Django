@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from django.urls import reverse
-
+from django.template.loader import render_to_string
 
 # Create your views here.
 monthly_challenges = {    
@@ -16,17 +16,15 @@ monthly_challenges = {
     "september":"september",
     "october":"october",
     "november":"november",
-    "december":"december",
+    "december":None,
 }
 
 def index(request):
     list_items = ""
     months = list(monthly_challenges.keys())
-    
-    for month in months:
-        capitalize_month = month.capitalize()
-        month_path = reverse("month-challenge", args=[month])
-        list_items+= f"<li><a href=\"{month_path}\">{capitalize_month}</a></li>"
+    return render(request,"challenges/index.html",{
+        "months":months
+    })
     
     response_data = f"<ul>{list_items}</ul>"
     return HttpResponse(response_data)
@@ -50,7 +48,11 @@ def monthly_challenge(request,month):
     try:
         challenge_text = monthly_challenges[month]
         # response_data = "<h1>{}<h1>".format(challenge_text)
-        response_data = f"<h1>{challenge_text}</h1>"
+        return render(request, "challenges/challenge.html",{
+            "month":month,
+            "text": challenge_text
+        })
+        response_data = render_to_string("challenges/challenge.html")
         return HttpResponse(response_data)
     except:
         return HttpResponseNotFound("<a href='january'>This month is not supported!</a>")
